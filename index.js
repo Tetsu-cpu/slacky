@@ -19,3 +19,4 @@ app.command("/slacky-ping", async ({ command, ack, respond }) => {
   await app.start();
   console.log("bot is running!");
 })();
+
