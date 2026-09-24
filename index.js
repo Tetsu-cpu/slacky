@@ -1,3 +1,4 @@
+const axios = require("axios");
 require("dotenv").config();
 
 const { App } = require("@slack/bolt");
@@ -19,4 +20,15 @@ app.command("/slacky-ping", async ({ command, ack, respond }) => {
   await app.start();
   console.log("bot is running!");
 })();
+
+app.command("/slacky-catfact", async ({ ack, respond }) => {
+  await ack();
+
+  try {
+    const response = await axios.get("https://catfact.ninja/fact");
+    await respond({ text: `Cat Fact:\n${response.data.fact}` });
+  } catch (err) {
+    await respond({ text: "Failed to fetch a cat fact." });
+  }
+});
 
