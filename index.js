@@ -67,6 +67,37 @@ app.command("/slacky-weather", async ({ command, ack, respond }) => {
     }
 });
 
+app.command("/slacky-day", async ({ command, ack, respond }) => {
+    await ack();
+
+    const inputDate = command.text ? command.text.trim() : "";
+
+    if (!inputDate) {
+        await respond({ text: "Please provide a date! Example: `/slacky-day 2026-12-25` (Format: YYYY-MM-DD)" });
+        return;
+    }
+
+    try {
+        // Create a date object from the user's input
+        const dateObj = new Date(inputDate);
+
+        // Check if the user typed a valid date
+        if (isNaN(dateObj.getTime())) {
+            await respond({ text: `Invalid date format: "${inputDate}". Please use YYYY-MM-DD format.` });
+            return;
+        }
+
+        // List of days to translate number to text name
+        const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const dayName = daysOfWeek[dateObj.getDay()];
+
+        await respond({ text: `The date *${inputDate}* was/is a *${dayName}*! 📅` });
+
+    } catch (err) {
+        await respond({ text: "Oops! Something went wrong while calculating the day." });
+    }
+});
+
 (async () => {
   await app.start();
   console.log("bot is running!");
