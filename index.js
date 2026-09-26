@@ -98,6 +98,102 @@ app.command("/slacky-day", async ({ command, ack, respond }) => {
     }
 });
 
+const crypto = require('crypto'); // Built-in Node.js security module
+
+app.command("/slacky-password", async ({ ack, respond }) => {
+    await ack();
+
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    const passwordLength = 14;
+    let password = "";
+
+    // Generate cryptographically secure random indices
+    for (let i = 0; i < passwordLength; i++) {
+        const randomIndex = crypto.randomInt(0, charset.length);
+        password += charset[randomIndex];
+    }
+
+    await respond({ text: `🔒 Here is your secure password:\n\`${password}\`` });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (async () => {
   await app.start();
   console.log("bot is running!");
