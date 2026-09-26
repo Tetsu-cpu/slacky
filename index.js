@@ -117,6 +117,38 @@ app.command("/slacky-password", async ({ ack, respond }) => {
 });
 
 
+app.command("/slacky-challenge", async ({ command, ack, respond }) => {
+    await ack();
+
+    const difficulty = command.text ? command.text.trim().toLowerCase() : "easy";
+
+    const challenges = {
+        easy: [
+            "💧 **Hydration:** Step away, drink a full glass of water right now, and take 3 deep breaths.",
+            "🚶 **Stretch:** Stand up, touch your toes, and roll your shoulders back 5 times.",
+            "🧹 **Quick Clean:** Clear one single item off your physical desk or clean out 3 old notifications on your phone.",
+            "🍏 **Snack Break:** Grab a piece of fruit or a healthy snack before you continue what you're doing."
+        ],
+        medium: [
+            "🧠 **Brain Teaser:** Stand up and walk away from your screen for 10 minutes without looking at your phone.",
+            "🎵 **Audio Refresh:** Put on your absolute favorite song, close your eyes, and just listen to it all the way through.",
+            "📝 **Mind Dump:** Grab a piece of paper and write down everything floating around in your head for 5 minutes.",
+            "📚 **Micro-Learn:** Read a Wikipedia page about a completely random historical event or scientific topic."
+        ],
+        hard: [
+            "🏃 **Physical Reset:** Do a 15-minute bodyweight workout or go for a brisk walk outside with zero screens.",
+            "📵 **Digital Fast:** Put your phone in another room and don't touch it for a full hour while you work or read.",
+            "🍳 **Life Skill:** Cook or prepare a fresh meal from scratch instead of ordering takeout or eating instant food.",
+            "🧘 **Focus Sprint:** Do a 25-minute deep work session with zero interruptions, browser tabs closed, and notifications off."
+        ]
+    };
+
+    const selectedList = challenges[difficulty] || challenges.easy;
+    const randomChallenge = selectedList[Math.floor(Math.random() * selectedList.length)];
+
+    await respond({ text: `🎯 **Life Challenge [Tier: ${difficulty.toUpperCase()}]**:\n\n${randomChallenge}` });
+});
+
 
 
 
