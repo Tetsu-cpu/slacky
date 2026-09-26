@@ -150,6 +150,18 @@ app.command("/slacky-challenge", async ({ command, ack, respond }) => {
 });
 
 
+app.command("/slacky-name"),async ({ack,respond}) => {
+    await ack();
+
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_.";
+    const namelength=14;
+    let name="";
+
+
+
+
+}
+
 
 
 
